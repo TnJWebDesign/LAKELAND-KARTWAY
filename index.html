@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakeland Kartway | Premium Go-Karting in Hamilton, ON</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00f0ff',
+                        secondary: '#ff00f0',
+                        dark: '#0a0a0f',
+                        darker: '#050508',
+                    },
+                    fontFamily: {
+                        sans: ['"Barlow Condensed"', 'sans-serif'],
+                        heading: ['"Racing Sans One"', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'neon-glow': 'neonGlow 1.5s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        neonGlow: {
+                            'from': {
+                                'text-shadow': '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f0ff, 0 0 20px #00f0ff',
+                            },
+                            'to': {
+                                'text-shadow': '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00f0ff, 0 0 40px #00f0ff',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Racing+Sans+One&display=swap');
+        
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            background-color: #0a0a0f;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .track-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2300f0ff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(10, 10, 15, 0.8) 0%, rgba(10, 10, 15, 0.5) 50%, rgba(10, 10, 15, 0.8) 100%);
+        }
+        
+        .track-map {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDEwMDAgNjAwIj48cmVjdCB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMwNTA1MDgiLz48cGF0aCBkPSJNMTUwLDEwMCBDMjAwLDE1MCAyNTAsMTUwIDMwMCwxMDAgQzM1MCw1MCA0MDAsNTAgNDUwLDEwMCBDNTAwLDE1MCA1NTAsMTUwIDYwMCwxMDAgQzY1MCw1MCA3MDAsNTAgNzUwLDEwMCBDODAwLDE1MCA4NTAsMTUwIDkwMCwxMDAgQzk1MCw1MCAxMDAwLDUwIDEwMDAsMTAwIEwxMDAwLDUwMCBDMTAwMCw0NTAgOTUwLDQwMCA5MDAsNDAwIEM4NTAsNDAwIDgwMCw0NTAgNzUwLDQwMCBDNzAwLDM1MCA2NTAsMzUwIDYwMCw0MDAgQzU1MCw0NTAgNTAwLDQwMCA0NTAsNDAwIEM0MDAsNDAwIDM1MCw0NTAgMzAwLDQwMCBDMjUwLDM1MCAyMDAsMzUwIDE1MCw0MDAgQzEwMCw0NTAgNTAsNDAwIDAsNTAwIEwwLDEwMCBDNTAsMTAwIDEwMCw1MCAxNTAsMTAwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwZjBmZiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtZGFzaGFycmF5PSIxMCwxMCIvPjwvc3ZnPg==');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 10px #00f0ff, 0 0 20px rgba(0, 240, 255, 0.5);
+            border: 1px solid #00f0ff;
+        }
+        
+        .neon-text {
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+        
+        .kart-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #ff00f0;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff00f0, 0 0 20px rgba(255, 0, 240, 0.5);
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+        
+        .price-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #0f0f15, #0a0a0f);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+        }
+        
+        .safety-rule {
+            border-left: 3px solid #00f0ff;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="track-pattern">
+    <!-- Navigation -->
+    <nav class="bg-darker bg-opacity-90 backdrop-blur-md sticky top-0 z-50 border-b border-primary/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                    <i class="fas fa-flag-checkered text-xl text-darker"></i>
+                </div>
+                <span class="text-2xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">LAKELAND KARTWAY</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#pricing" class="text-white hover:text-primary transition-colors font-semibold">PRICING</a>
+                <a href="#events" class="text-white hover:text-primary transition-colors font-semibold">EVENTS</a>
+                <a href="#safety" class="text-white hover:text-primary transition-colors font-semibold">SAFETY</a>
+                <a href="#gallery" class="text-white hover:text-primary transition-colors font-semibold">GALLERY</a>
+                <a href="#contact" class="text-white hover:text-primary transition-colors font-semibold">CONTACT</a>
+            </div>
+            <button class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden track-map">
+        <div class="hero-overlay absolute inset-0 z-10"></div>
+        <div class="relative z-20 text-center px-4">
+            <h1 class="hero-title text-6xl md:text-8xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary neon-text">
+                LAKELAND KARTWAY
+            </h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-8 text-white font-semibold">
+                Hamilton's premier outdoor go-karting experience. Feel the rush on our championship-caliber track by Lake Ontario.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#pricing" class="bg-gradient-to-r from-primary to-secondary text-darker font-bold py-3 px-8 rounded-full hover:opacity-90 transition-opacity">
+                    BOOK NOW
+                </a>
+                <a href="#events" class="border-2 border-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary hover:text-darker transition-colors">
+                    GROUP EVENTS
+                </a>
+            </div>
+        </div>
+        
+        <!-- Animated kart icons on the track -->
+        <div class="kart-icon" style="top: 30%; left: 20%;"></div>
+        <div class="kart-icon" style="top: 40%; left: 50%;"></div>
+        <div class="kart-icon" style="top: 60%; left: 70%;"></div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-heading font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                RACE OPTIONS
+            </h2>
+            <p class="text-xl text-center mb-12 max-w-2xl mx-auto text-white/80">
+                Choose your racing experience with our flexible pricing options
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Single Race -->
+                <div class="price-card rounded-xl p-8 neon-border">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-primary">SINGLE RACE</h3>
+                        <p class="text-white/80">Perfect for first-timers</p>
+                    </div>
+                    <div class="text-center mb-6">
+                        <span class="text-5xl font-bold">$25</span>
+                        <span class="text-white/60">/session</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>8-minute session</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Safety briefing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Helmet provided</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-primary text-darker font-bold py-3 rounded-full hover:bg-primary/90 transition-colors">
+                        BOOK NOW
+                    </button>
+                </div>
+                
+                <!-- Best Value -->
+                <div class="price-card rounded-xl p-8 neon-border relative">
+                    <div class="absolute -top-3 -right-3 bg-secondary text-darker px-3 py-1 rounded-full text-sm font-bold">
+                        BEST VALUE
+                    </div>
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-primary">TRIPLE PACK</h3>
+                        <p class="text-white/80">More track time, more fun</p>
+                    </div>
+                    <div class="text-center mb-6">
+                        <span class="text-5xl font-bold">$65</span>
+                        <span class="text-white/60">/3 sessions</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Three 8-minute sessions</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Priority lane access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Personalized scorecard</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>10% discount on merchandise</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-primary to-secondary text-darker font-bold py-3 rounded-full hover:opacity-90 transition-opacity">
+                        BOOK NOW
+                    </button>
+                </div>
+                
+                <!-- Membership -->
+                <div class="price-card rounded-xl p-8 neon-border">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-primary">MONTHLY PASS</h3>
+                        <p class="text-white/80">For the serious racers</p>
+                    </div>
+                    <div class="text-center mb-6">
+                        <span class="text-5xl font-bold">$120</span>
+                        <span class="text-white/60">/month</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Unlimited sessions</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Exclusive member events</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>Free gear storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span>20% discount on all purchases</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-primary text-darker font-bold py-3 rounded-full hover:bg-primary/90 transition-colors">
+                        JOIN NOW
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Group Events -->
+    <section id="events" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                        GROUP EVENTS
+                    </h2>
+                    <p class="text-xl mb-6 text-white/80">
+                        Host your next corporate event, birthday party, or team-building session at Lakeland Kartway. Our professional staff will ensure your group has an unforgettable racing experience.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="p-6 bg-darker rounded-lg neon-border">
+                            <h3 class="text-2xl font-bold mb-3 text-primary">CORPORATE EVENTS</h3>
+                            <p class="text-white/80 mb-4">
+                                Perfect for team building, client entertainment, or company outings. We offer customized packages to fit your needs.
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-trophy text-secondary mr-2 mt-1"></i>
+                                    <span>Tournament-style racing with trophies</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-utensils text-secondary mr-2 mt-1"></i>
+                                    <span>Catering options available</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chalkboard-teacher text-secondary mr-2 mt-1"></i>
+                                    <span>Professional instruction available</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 bg-darker rounded-lg neon-border">
+                            <h3 class="text-2xl font-bold mb-3 text-primary">BIRTHDAY PARTIES</h3>
+                            <p class="text-white/80 mb-4">
+                                Celebrate your special day with high-speed excitement! Our birthday packages include racing, food, and fun for all ages.
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-birthday-cake text-secondary mr-2 mt-1"></i>
+                                    <span>Custom cake and decorations</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-photo-video text-secondary mr-2 mt-1"></i>
+                                    <span>Action photos and videos available</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-gift text-secondary mr-2 mt-1"></i>
+                                    <span>Special gifts for the birthday racer</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-darker p-8 rounded-xl neon-border">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-primary">REQUEST A QUOTE</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-white/80 mb-2">Name</label>
+                                <input type="text" class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-white/80 mb-2">Email</label>
+                                <input type="email" class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-white/80 mb-2">Phone</label>
+                                <input type="tel" class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-white/80 mb-2">Event Type</label>
+                                <select class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option>Corporate Event</option>
+                                    <option>Birthday Party</option>
+                                    <option>Team Building</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-white/80 mb-2">Estimated Guests</label>
+                                <input type="number" class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-white/80 mb-2">Date Preference</label>
+                                <input type="date" class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-darker font-bold py-3 rounded-full hover:opacity-90 transition-opacity">
+                                SUBMIT REQUEST
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Rules -->
+    <section id="safety" class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-heading font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                SAFETY FIRST
+            </h2>
+            <p class="text-xl text-center mb-12 max-w-3xl mx-auto text-white/80">
+                Your safety is our top priority. Please review our rules before arriving at the track.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="p-6 bg-dark rounded-lg safety-rule">
+                    <h3 class="text-2xl font-bold mb-3 text-primary">AGE & HEIGHT REQUIREMENTS</h3>
+                    <ul class="space-y-3 text-white/80">
+                        <li>Drivers must be at least 12 years old</li>
+                        <li>Minimum height requirement of 4'8" (142 cm)</li>
+                        <li>Junior karts available for younger/smaller drivers</li>
+                        <li>Parental consent required for drivers under 18</li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 bg-dark rounded-lg safety-rule">
+                    <h3 class="text-2xl font-bold mb-3 text-primary">CLOTHING REQUIREMENTS</h3>
+                    <ul class="space-y-3 text-white/80">
+                        <li>Closed-toe shoes required (no sandals or flip-flops)</li>
+                        <li>Long hair must be tied back</li>
+                        <li>No loose clothing or scarves</li>
+                        <li>Helmets provided and must be worn at all times</li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 bg-dark rounded-lg safety-rule">
+                    <h3 class="text-2xl font-bold mb-3 text-primary">TRACK RULES</h3>
+                    <ul class="space-y-3 text-white/80">
+                        <li>No bumping or intentional contact</li>
+                        <li>Follow all flag signals from marshals</li>
+                        <li>Maintain safe distances between karts</li>
+                        <li>No stopping on track except in designated areas</li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 bg-dark rounded-lg safety-rule">
+                    <h3 class="text-2xl font-bold mb-3 text-primary">HEALTH & CONDUCT</h3>
+                    <ul class="space-y-3 text-white/80">
+                        <li>No alcohol or drugs before driving</li>
+                        <li>Must be free from any condition that impairs driving</li>
+                        <li>Aggressive behavior will not be tolerated</li>
+                        <li>Follow all instructions from staff</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center bg-dark px-6 py-3 rounded-full neon-border">
+                    <i class="fas fa-shield-alt text-primary mr-3 text-xl"></i>
+                    <span class="font-semibold">All karts are regularly inspected and maintained to the highest safety standards</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-heading font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                TRACK GALLERY
+            </h2>
+            <p class="text-xl text-center mb-12 max-w-3xl mx-auto text-white/80">
+                Experience the thrill of Lakeland Kartway through these action shots
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-item rounded-xl overflow-hidden neon-border">
+                    <img src="https://bloximages.chicago2.vip.townnews.com/thespec.com/content/tncms/assets/v3/editorial/d/5b/d5bf7669-5cde-5927-bff0-759f77f8ba2f/6709510c0665c.image.jpg?resize=1200%2C619"Track overview" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden neon-border">
+                    <img src="https://scontent-yyz1-1.xx.fbcdn.net/v/t39.30808-6/506831473_2956491647891524_344953636040974590_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=TZYCwjSrlS8Q7kNvwHU1OiT&_nc_oc=AdnKa9J5vJpCY97V0gWmAXnAolIvH0CQUgLdGO-RnowZKIbeYWmYl-MNLxz6TZEekb3G_xMcHBWLb8ZK5kx8nuj0&_nc_zt=23&_nc_ht=scontent-yyz1-1.xx&_nc_gid=TzpgqozP3kZ2IUDeuIPYog&oh=00_AfXk63jooHh9XjKJelAfs6Il8doJsx53aPDZzIM8MfGMoQ&oe=68A70E5E" alt="Kart racing" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden neon-border">
+                    <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/06/89/2d/b6.jpg" alt="Track corner" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden neon-border">
+                    <img src="https://bloximages.chicago2.vip.townnews.com/thespec.com/content/tncms/assets/v3/editorial/d/12/d12cfbb8-a936-5032-972b-012d7b197cbf/63d9a07ce62e2.image.jpg?resize=796%2C500" alt="Kart closeup" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden neon-border">
+                    <img src="https://kidzapp.com/_next/image?url=https%3A%2F%2Fd1snrxh3s61e7p.cloudfront.net%2Fmedia%2Fvenues%2F09a0c103-13b7-4d77-babd-b46954ac29b0%2Flakeland-kartway.webp&w=3840&q=75" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-xl overflow-hidden neon-border">
+                    <img src="https://militarybruce.com/wp-content/uploads/2024/10/Lakeland-Go-Karts-1.jpg" alt="Pit area" class="w-full h-full object-cover">
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center border-2 border-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary hover:text-darker transition-colors">
+                    <i class="fas fa-images mr-2"></i> VIEW FULL GALLERY
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <footer id="contact" class="bg-darker py-16 border-t border-primary/10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                        LAKELAND KARTWAY
+                    </h3>
+                    <p class="text-white/80 mb-6">
+                        Hamilton's premier outdoor go-karting experience located on the shores of Lake Ontario. Feel the rush on our championship-caliber track.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-darker hover:bg-secondary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-darker hover:bg-secondary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-darker hover:bg-secondary transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-primary">CONTACT US</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-secondary mr-3 mt-1"></i>
+                            <span>1250 Lake Ontario Drive<br>Hamilton, ON L8E 3K5</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-secondary mr-3"></i>
+                            <span>(905) 555-9876</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-secondary mr-3"></i>
+                            <span>info@lakelandkartway.com</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-primary">HOURS</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span>Monday - Thursday</span>
+                            <span>12pm - 9pm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Friday</span>
+                            <span>12pm - 11pm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Saturday</span>
+                            <span>10am - 11pm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Sunday</span>
+                            <span>10am - 8pm</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-bold mb-3 text-primary">NEWSLETTER</h4>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="bg-dark border border-primary/30 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary w-full">
+                            <button class="bg-primary text-darker px-4 rounded-r-lg hover:bg-primary/90 transition-colors">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-primary/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-white/60 mb-4 md:mb-0">
+                    &copy; 2025 Lakeland Kartway. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white/60 hover:text-primary transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-white/60 hover:text-primary transition-colors">Terms of Service</a>
+                    <a href="#" class="text-white/60 hover:text-primary transition-colors">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for karts
+        document.addEventListener('DOMContentLoaded', function() {
+            const karts = document.querySelectorAll('.kart-icon');
+            
+            karts.forEach((kart, index) => {
+                // Random delay for each kart
+                const delay = index * 0.5;
+                kart.style.animation = `pulse 2s ${delay}s infinite`;
+                
+                // Make them move along the track
+                if(index === 0) {
+                    animateKart(kart, "20%", "30%", "50%", "40%", 8);
+                } else if(index === 1) {
+                    animateKart(kart, "50%", "40%", "70%", "60%", 12);
+                } else if(index === 2) {
+                    animateKart(kart, "70%", "60%", "90%", "50%", 10);
+                }
+            });
+            
+            function animateKart(kart, startX, startY, endX, endY, duration) {
+                kart.style.left = startX;
+                kart.style.top = startY;
+                
+                const keyframes = [
+                    { left: startX, top: startY },
+                    { left: endX, top: endY }
+                ];
+                
+                const options = {
+                    duration: duration * 1000,
+                    iterations: Infinity,
+                    direction: 'alternate',
+                    easing: 'ease-in-out'
+                };
+                
+                kart.animate(keyframes, options);
+            }
+        });
+    </script>
+</body>
+</html>
